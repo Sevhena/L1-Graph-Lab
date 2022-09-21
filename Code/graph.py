@@ -5,15 +5,15 @@
 #use extractor to obtain the connections
 
 #build the graph
-from GraphBuilders.LondonGraphBuilder import LondonGraphBuilder
+from LondonGraphBuilder import LondonGraphBuilder
 from IGraphBuilder import BuildGraph
 
 
 
 class Graph:
 
-    def __init__(self):
-        self.adjacency_list = BuildGraph(LondonGraphBuilder())
+    def __init__(self, graph):
+        self.adjacency_list = BuildGraph(graph)
 
     def display(self):
         print(self.adjacency_list)
@@ -22,7 +22,7 @@ class Graph:
         return self.adjacency_list
 
 #print(BuildGraph(LondonGraphBuilder()))
-Graph().display()
+#Graph().display()
 # connections = {
 
 #     11: {163:[[1,1]], 83:[[3,3],[6,3]] },
