@@ -9,10 +9,11 @@ def numNodes(graph):
 
 def numEdges(graph):
     numEdges = 0
-    for rows in graph.getAdjList().values():
-        for edge in rows: 
-            if edge.reverse == False:
-                numEdges += 1
+    for dict in graph.getAdjList().values():
+        for row in dict.values(): 
+            for edge in row:
+                if edge.reverse == False:
+                    numEdges += 1
 
     return numEdges
 
@@ -24,7 +25,7 @@ def avgDegree(graph):
 def main():
     graph = Graph(LondonGraphBuilder())
 
-    print(avgDegree(graph))
+    print(numEdges(graph))
     #print(graph.adjList(read_London_Connections()))
 
 if __name__ == "__main__":

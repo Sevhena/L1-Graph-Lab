@@ -3,24 +3,24 @@ import heapq
 class MinPQ:
 
     def __init__(self, length):
-        self.queue = [None] * length
+        self.queue = [] 
 
-    def push(self, weight, order, node):
-        heapq.heappush(self.queue, (weight, order, node)) 
+    def push(self, tuple):
+        heapq.heappush(self.queue, tuple) 
 
     def pop(self):
         return heapq.heappop(self.queue)
 
     def contains(self, node):
         for tuple in self.queue:
-            if tuple[2] is node:
+            if tuple[len(tuple)-1] == node:
                 return True
 
-    def replace(self, weight, order, node):
+    def replace(self, tuple):
         for i in range(self.length()):
-            if self.queue[i][2] is node:
-                self.queue.remove(i)
-                self.queue.push(weight, order, node)
+            if self.queue[i][len(self.queue[i])-1] == tuple[len(tuple)-1]:
+                self.queue.remove(self.queue[i])
+                self.push(tuple)
 
 
     def length(self):

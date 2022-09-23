@@ -1,14 +1,5 @@
-# import the graphbuilder
-
-#use extracor to aquire the stations
-
-#use extractor to obtain the connections
-
-#build the graph
 from LondonGraphBuilder import LondonGraphBuilder
 from IGraphBuilder import BuildGraph
-
-
 
 class Graph:
 

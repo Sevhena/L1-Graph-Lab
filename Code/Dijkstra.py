@@ -5,33 +5,111 @@ from MinPQ import MinPQ
 
 class Dijkstra:
 
-    def __init__(self, graph, start):
-        self.edge = {} 
-        self.time = {} 
-        self.pqueue = MinPQ(303) #MUST CHANGE!!!!
+    def __init__(self, graph, start, numNodes):
+        self.start = start
+
+        #Shortest based of time taken
+        self.edge = [0] * (numNodes + 2)
+        self.timeTo = [0] * (numNodes + 2)
+
+        #Shortest based on line changes
+        self.timeToC = [0] * (numNodes + 2)
+        self.connectionsTo = [0] * (numNodes + 2) 
+        self.edgeC = [0] * (numNodes + 2)
+
+        self.pqueue = MinPQ(numNodes + 2)
         self.order_added = 0
 
-        for i in range(len(self.time)):
-            self.time[i] = float('inf')
+        for i in range(len(self.timeTo)):
+            self.timeTo[i] = float('inf')
 
-        self.time[start.getId()] = 0
+        #print(len(self.time))
+        self.timeTo[start] = 0
 
-        self.pqueue.push(0, self.order_added, start)
+        self.pqueue.push((0, self.order_added, start))
         self.order_added += 1
         while self.pqueue.length() != 0:
-            self.relax(graph, self.pqueue.pop()[2])
+            self.relaxT(graph, self.pqueue.pop()[2])
 
-    def relax(self, graph, node1):
-        for edge in graph.getAdjList().values():
-            node2 = edge.to.getId()
+        for i in range(len(self.timeToC)):
+            self.timeToC[i] = float('inf')
 
-            if self.time[node2] > self.time[node1] + edge.time:
-                self.time[node2] = self.time[node1] + edge.time
-                self.edge[node2] = edge
+        self.order_added = 0
+        self.timeToC[start] = 0
 
-                if self.pqueue.contains(node2):
-                    self.pqueue.replace(self.time[node2], self.order_added, edge.to)
-                else:
-                    self.pqueue.push(self.time[node2], self.order_added, edge.to)
-                
-                self.order_added += 1
+        self.pqueue.push((0, 0, self.order_added, start))
+        self.order_added += 1
+        while self.pqueue.length() != 0:
+            self.relaxC(graph, self.pqueue.pop()[3])
+
+        # for edge in self.edgeC:
+        #     if edge != 0:
+        #         print(edge.start.getId(),edge.to.getId())
+
+
+
+    def relaxT(self, graph, node1):
+        for row in graph.getAdjList()[node1].values():
+            for edge in row:
+                node2 = edge.to.getId()
+                #print(node2,node1)
+
+                if self.timeTo[node2] > self.timeTo[node1] + edge.time:
+                    self.timeTo[node2] = self.timeTo[node1] + edge.time
+                    self.edge[node2] = edge
+
+                    if self.pqueue.contains(node2):
+                        self.pqueue.replace((self.timeTo[node2], self.order_added, edge.to.getId()))
+                    else:
+                        self.pqueue.push((self.timeTo[node2], self.order_added, edge.to.getId()))
+                    
+                    self.order_added += 1
+
+    def relaxC(self, graph, node1):
+        lastEdge = None
+        #print(graph.getAdjList().keys())
+        for row in graph.getAdjList()[node1].values():
+            for edge in row:
+                node2 = edge.to.getId()
+                #print(node2,node1)
+
+                newLine = lastEdge != None and edge.line.lineID != lastEdge.line.lineID
+                #print(int(newLine))
+                if self.timeToC[node2] > self.timeToC[node1] + edge.time:
+                    self.timeToC[node2] = self.timeToC[node1] + edge.time
+                    self.connectionsTo[node2] = self.connectionsTo[node1] + newLine
+                    self.edgeC[node2] = edge
+                    #print(edge)
+
+                    if self.pqueue.contains(node2):
+                        self.pqueue.replace((self.connectionsTo[node2], self.timeToC[node2], self.order_added, edge.to.getId()))
+                    else:
+                        self.pqueue.push((self.connectionsTo[node2], self.timeToC[node2], self.order_added, edge.to.getId()))
+                    
+                    self.order_added += 1
+                    lastEdge = edge
+                    #print(lastEdge)
+        
+
+    def pathTo(self, destination):
+        if not (self.timeTo[destination] < float('inf')):
+            return None
+        
+        if not (self.connectionsTo[destination] < float('inf')):
+            return None
+
+        pathT = []
+        edge = self.edge[destination]
+        while edge != 0:
+            pathT.append(edge)
+            edge = self.edge[edge.start.getId()]
+
+        pathC = []
+        edge = self.edgeC[destination]
+        while edge != 0:
+            pathC.append(edge)
+            edge = self.edgeC[edge.start.getId()]
+        
+        return pathT, pathC
+
+
