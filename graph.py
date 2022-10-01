@@ -1,11 +1,32 @@
-from GraphBuilder import*
-from Extractor import*
+# import the graphbuilder
 
-connections = MetricExtractor().read_London_Connections('_dataset\london.connections.csv')
-locations = MetricExtractor().read_London_Station('_dataset\london.stations.csv')
+#use extracor to aquire the stations
 
-graph = Graph(connections,locations)
+#use extractor to obtain the connections
+
+#build the graph
+from LondonGraphBuilder import LondonGraphBuilder
+from IGraphBuilder import BuildGraph
 
 
-ShortestPath = graph.aStarAlgo(11,13)
-print(ShortestPath)
+
+class Graph:
+
+    def __init__(self, graph):
+        self.adjacency_list = BuildGraph(graph)
+
+    def display(self):
+        print(self.adjacency_list)
+
+    def getAdjList(self):
+        return self.adjacency_list
+
+#print(BuildGraph(LondonGraphBuilder()))
+#Graph().display()
+# connections = {
+
+#     11: {163:[[1,1]], 83:[[3,3],[6,3]] },
+#     49: {87:[[1,1]]}
+# }
+
+# print(connections[11][83][0])
