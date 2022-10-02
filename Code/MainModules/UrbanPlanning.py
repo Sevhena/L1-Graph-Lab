@@ -1,12 +1,21 @@
+from ..PathFinders.AstarAlgo import AstarAlgo
+
 from graph import Graph
 from MetricExtractor import*
 from LondonGraphBuilder import*
-from AstarAlgo import AstarAlgo
 
 class UrbanPlanning:
-    def __init__(self,graph, stations):
+    def __init__(self,graph):
         self.graph = graph
-        self.stations = stations
+
+        self.stations = {}
+        for dict in self.graph.getAdjList().values():
+            for row in dict.values(): 
+                for edge in row:
+                    self.stations[edge.getStart().getId()] = edge.getStart()
+                    break
+                break
+
         self.cc = []
 
     def getZones(self,stations):

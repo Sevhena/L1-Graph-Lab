@@ -1,6 +1,8 @@
-from MetricExtractor import numNodes
+from ..PathFinders.Dijkstra import Dijkstra
+
+from .MetricExtractor import numNodes
 import random
-from Dijkstra import Dijkstra
+
 
 class Itinerary:
 

@@ -2,13 +2,11 @@ import heapq
 
 class MinPQ:
 
-    #tuple format (comparator, comparator, ..., value)
-
     def __init__(self, length):
         self.queue = [] 
 
-    def push(self, weight, order, node):
-        heapq.heappush(self.queue, (weight, order, node)) 
+    def push(self, tuple):
+        heapq.heappush(self.queue, tuple) 
 
     def pop(self):
         return heapq.heappop(self.queue)
@@ -27,4 +25,5 @@ class MinPQ:
 
     def length(self):
         return len(self.queue)
+
 

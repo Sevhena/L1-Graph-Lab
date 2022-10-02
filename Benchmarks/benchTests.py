@@ -2,8 +2,8 @@ import random
 import time
 import tracemalloc
 from PathFactory import PathFactory
-from Code.graph import Graph
-from LondonGraphBuilder import LondonGraphBuilder
+from ..Code.MainModules.graph import Graph
+from ..Code.MainModules.LondonGraphBuilder import LondonGraphBuilder
 
 graph = Graph(LondonGraphBuilder())
 

@@ -2,8 +2,9 @@ import pytest
 
 
 @pytest.fixture
-def start_is_end() -> tuple[int, int]:
+def start_is_end():
     return 1,1
 
 @pytest.fixture
-def 
+def multi_edge_pair():
+    return 104,90

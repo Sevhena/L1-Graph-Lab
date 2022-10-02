@@ -1,5 +1,6 @@
-from LondonGraphBuilder import LondonGraphBuilder
-from graph import Graph
+from ..MainModules.LondonGraphBuilder import LondonGraphBuilder
+from ..MainModules.graph import Graph
+
 from math import radians,sin,cos,asin,sqrt
 
 class AstarAlgo:
@@ -9,7 +10,15 @@ class AstarAlgo:
     def __init__(self, graph, start):
         self.graph = graph
         self.start = start
-        self.stations = LondonGraphBuilder().stationsList
+
+        self.stations = {}
+        for dict in self.graph.getAdjList().values():
+            for row in dict.values(): 
+                for edge in row:
+                    self.stations[edge.getStart().getId()] = edge.getStart()
+                    break
+                break
+
         self.getGeoLocations(self.stations)
 
 
@@ -67,28 +76,29 @@ class AstarAlgo:
                 return pathTaken
 
             # Iterate through the children of the current node  
-            for adjacentEdge in self.graph.getAdjList()[n]:
-                # Here we get ready to get the weight
-                adjacentNode = adjacentEdge.getTo().getId()
-                weight = adjacentEdge.getTime()
-                #check if the child is in the open and the closed list
-                if(adjacentNode not in openList and adjacentNode not in closedList):
-                        #Add the child to the open list
-                    openList.add(adjacentNode)
-                    adjacentMapping[adjacentNode] = n
-                        #Assign the g value of the child in the g values list (Weight of the path so far + the weight of the current child)
-                    gValues[adjacentNode] = gValues[n] + weight
-                else:
-                        # Here we see if it is faster to first visit the current node than the child
-                        # if so we update the values
-                    if(gValues[adjacentNode] > gValues[n] + weight):
-                        gValues[adjacentNode] = gValues[n] + weight
+            for adjacentEdgeList in self.graph.getAdjList()[n].values():
+                for adjacentEdge in adjacentEdgeList:
+                    # Here we get ready to get the weight
+                    adjacentNode = adjacentEdge.getTo().getId()
+                    weight = adjacentEdge.getTime()
+                    #check if the child is in the open and the closed list
+                    if(adjacentNode not in openList and adjacentNode not in closedList):
+                            #Add the child to the open list
+                        openList.add(adjacentNode)
                         adjacentMapping[adjacentNode] = n
+                            #Assign the g value of the child in the g values list (Weight of the path so far + the weight of the current child)
+                        gValues[adjacentNode] = gValues[n] + weight
+                    else:
+                            # Here we see if it is faster to first visit the current node than the child
+                            # if so we update the values
+                        if(gValues[adjacentNode] > gValues[n] + weight):
+                            gValues[adjacentNode] = gValues[n] + weight
+                            adjacentMapping[adjacentNode] = n
 
-                            #if the child is in the closed list move it to the open list
-                        if(adjacentNode in closedList):
-                            closedList.remove(adjacentNode)
-                            openList.add(adjacentNode)
+                                #if the child is in the closed list move it to the open list
+                            if(adjacentNode in closedList):
+                                closedList.remove(adjacentNode)
+                                openList.add(adjacentNode)
 
             #remove the current node from the openList
             #add the current node to the closed list as we are finsihed with it
