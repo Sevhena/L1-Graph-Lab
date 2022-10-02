@@ -1,3 +1,4 @@
+
 def numNodes(graph):
     return len(graph.getAdjList())
 

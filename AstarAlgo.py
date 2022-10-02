@@ -71,6 +71,7 @@ class AstarAlgo:
 
             # Iterate through the children of the current node  
             for adjacentEdge in self.graph.getAdjList()[n]:
+                print("Hello ", adjacentEdge)
                 # Here we get ready to get the weight
                 adjacentNode = adjacentEdge.getTo().getId()
                 weight = adjacentEdge.getTime()

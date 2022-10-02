@@ -67,15 +67,5 @@ class LondonGraphBuilder:
 
         return self.adj_list
 
-def main():
-    graph = LondonGraphBuilder()
-    print(graph.getAdjacenyList()[11][0].getTo().getId())
-    #print(graph.lines_list[6].getLineID())
-    #print(len(graph.stationsList))
-    #read_London_Station()
-
-if __name__ == "__main__":
-    main()
-
 
 

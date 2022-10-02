@@ -7,8 +7,8 @@ class MinPQ:
     def __init__(self, length):
         self.queue = [] 
 
-    def push(self, tuple):
-        heapq.heappush(self.queue, tuple) 
+    def push(self, weight, order, node):
+        heapq.heappush(self.queue, (weight, order, node)) 
 
     def pop(self):
         return heapq.heappop(self.queue)

@@ -1,6 +1,6 @@
-from graph import Graph
-from MinPQ import MinPQ
-from MetricExtractor import numNodes
+from Code.graph import Graph
+from Code.MinPQ import MinPQ
+from Code.MetricExtractor import numNodes
 
 
 class Dijkstra:
@@ -22,7 +22,7 @@ class Dijkstra:
 
         self.timeTo[start] = 0
 
-        self.pqueue.push((0, 0, self.order_added, start))
+        self.pqueue.push((0, self.order_added, start))
         self.order_added += 1
         while self.pqueue.length() != 0:
             self.relax(graph, self.pqueue.pop()[3])
