@@ -1,5 +1,4 @@
 #MAIN Module
-from turtle import clear
 from LondonGraphBuilder import LondonGraphBuilder
 from UrbanPlanning import UrbanPlanning
 from graph import Graph
@@ -10,5 +9,8 @@ graph = Graph(LondonGraphBuilder())
 stations = LondonGraphBuilder().read_London_Station()
 up = UrbanPlanning(graph,stations)
 a =AstarAlgo(graph)
+
+print(a.aStarAlgo(4,70))
+
 
 
