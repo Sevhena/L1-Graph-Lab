@@ -2,6 +2,8 @@ import heapq
 
 class MinPQ:
 
+    #tuple format (comparator, comparator, ..., value)
+
     def __init__(self, length):
         self.queue = [] 
 

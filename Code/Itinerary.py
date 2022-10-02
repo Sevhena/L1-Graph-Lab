@@ -1,13 +1,12 @@
-from IShortestPath import ShortestPath
-
+from MetricExtractor import numNodes
 import random
 from Dijkstra import Dijkstra
 
 class Itinerary:
 
-    def __init__(self, graph, numNodes):
+    def __init__(self, graph):
         self.graph = graph
-        self.numNodes = numNodes
+        self.numNodes = numNodes(graph)
         #self.aStar = AStar()
 
     def shortestPath(self, pathFinder, destination):
@@ -17,26 +16,31 @@ class Itinerary:
         path = []
         travelled = {}
         startNode = random.choice(nodes)
+        firstNode = startNode
+        #print(startNode)
         travelled[startNode] = True
+        
 
-        while all(node in travelled for node in nodes):
-            dijkstra = Dijkstra(self.graph, startNode,self.numNodes)
+        while not all(node in travelled.keys() for node in nodes):
+            dijkstra = Dijkstra(self.graph, startNode)
 
-            minDistNode = float('inf')
+            #print("check 1")
+
+            minDistNode = 0
             for node in nodes:
                 if travelled.get(node) == None:
                     if dijkstra.timeTo[node] < dijkstra.timeTo[minDistNode]:
+                        #print("check 2")
                         minDistNode = node
 
+            print(minDistNode)
             travelled[minDistNode] = True
             path += self.shortestPath(dijkstra, minDistNode)
+            startNode = minDistNode
 
-            if all(node in travelled for node in nodes):
-                path += self.shortestPath(Dijkstra(self.graph, minDistNode, self.numNodes), startNode)
+            if all(node in travelled.keys() for node in nodes):
+                path += self.shortestPath(Dijkstra(self.graph, minDistNode), firstNode)
+                #print("check 3")
 
-        
-
-
-
-## NOT DONE
-
+        print(len(path))
+        return path

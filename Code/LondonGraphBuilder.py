@@ -14,7 +14,7 @@ class LondonGraphBuilder:
 
     def read_London_Station(self):
         stations_list = {}
-        with open('_dataset\london.stations.csv')as file:
+        with open('..\_dataset\london.stations.csv') as file:
             csvFile = csv.reader(file)
 
             next(csvFile) #Skip headers
@@ -28,7 +28,7 @@ class LondonGraphBuilder:
 
     def read_London_Lines(self):
         L_Lines = {}
-        with open('_dataset\london.lines.csv')as file:
+        with open('..\_dataset\london.lines.csv')as file:
             csvFile = csv.reader(file)
 
             next(csvFile) #Skip headers
@@ -43,7 +43,7 @@ class LondonGraphBuilder:
 
     def read_London_Connections(self):
         connections = [] #
-        with open('_dataset/london.connections.csv')as file:
+        with open('..\_dataset/london.connections.csv')as file:
             csvFile = csv.reader(file)
 
             next(csvFile) #Skip headers
@@ -74,19 +74,4 @@ class LondonGraphBuilder:
                 else:
                     self.adj_list[row[1]][row[0]] += [Edge(self.stationsList[row[1]], self.stationsList[row[0]], self.lines_list[row[2]], row[3], True)]
 
-                
-
         return self.adj_list
-
-# def main():
-#     graph = LondonGraphBuilder()
-#     print(graph.getAdjacenyList()[11][0].getTo().getId())
-#     #print(graph.lines_list[6].getLineID())
-#     #print(len(graph.stationsList))
-#     #read_London_Station()
-
-# if __name__ == "__main__":
-#     main()
-
-
-

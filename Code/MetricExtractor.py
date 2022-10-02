@@ -1,9 +1,3 @@
-from LondonGraphBuilder import LondonGraphBuilder
-from graph import Graph
-# from GraphBuilders.Line import Line
-# from GraphBuilders.Station import Station
-# from GraphBuilders.Edge import Edge
-
 def numNodes(graph):
     return len(graph.getAdjList())
 
@@ -18,15 +12,25 @@ def numEdges(graph):
     return numEdges
 
 def avgDegree(graph):
-    return numEdges(graph) / numNodes(graph)
+    degreeDist = degreeDistribution(graph)
+    sum_of_degrees = 0
 
+    for degree in degreeDist.keys():
+        sum_of_degrees += degree * degreeDist[degree]
+        
+    return sum_of_degrees/ numNodes(graph)
 
+def degreeDistribution(graph):
+    degreeDist = {}
+    
+    for dict in graph.getAdjList().values():
+        degree = 0
+        for row in dict.values(): 
+            degree += len(row)
 
-def main():
-    graph = Graph(LondonGraphBuilder())
+        if degreeDist.get(degree) == None:
+            degreeDist[degree] = 1
+        else:
+            degreeDist[degree] += 1
 
-    print(numEdges(graph))
-    #print(graph.adjList(read_London_Connections()))
-
-if __name__ == "__main__":
-    main()
+    return degreeDist

@@ -1,10 +1,10 @@
 class Edge:
 
     def __init__(self, start, to, line, time, reverse):
-        self.start = start
-        self.to = to
+        self.start = start #Station object  
+        self.to = to #Station object
         self.time = time
-        self.line = line
+        self.line = line #Line object
         self.reverse = reverse
 
     def getStart(self):
