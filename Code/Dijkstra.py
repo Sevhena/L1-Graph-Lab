@@ -1,6 +1,6 @@
-from ..MainModules.MetricExtractor import numNodes
+from MetricExtractor import numNodes
 
-from ..PathFinders.MinPQ import MinPQ
+from MinPQ import MinPQ
 
 class Dijkstra:
 

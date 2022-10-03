@@ -1,4 +1,4 @@
-from ..PathFinders.AstarAlgo import AstarAlgo
+from AstarAlgo import AstarAlgo
 
 from graph import Graph
 from MetricExtractor import*

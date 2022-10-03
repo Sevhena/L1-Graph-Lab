@@ -1,5 +1,5 @@
-from ..Code.PathFinders.AstarAlgo import AstarAlgo
-from ..Code.PathFinders.Dijkstra import Dijkstra
+from AstarAlgo import AstarAlgo
+from Dijkstra import Dijkstra
 
 class PathFactory:
 

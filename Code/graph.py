@@ -1,4 +1,4 @@
-from .IGraphBuilder import BuildGraph
+from IGraphBuilder import BuildGraph
 
 class Graph:
 

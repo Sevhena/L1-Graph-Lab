@@ -1,14 +1,13 @@
 import pytest
 
-from ..MainModules.LondonGraphBuilder import LondonGraphBuilder
-from ..MainModules.graph import Graph
-from ..PathFinders.AstarAlgo import AstarAlgo
+from LondonGraphBuilder import LondonGraphBuilder
+from graph import Graph
+from AstarAlgo import AstarAlgo
 
 graph = Graph(LondonGraphBuilder())
-astar = AstarAlgo(graph)
 
 def AStarAlgo(start, end):
-    return astar.aStarAlgo(start,end)
+    return AstarAlgo(graph, start).pathTo(end)
 
 def test_AStarAlgo_Same_Station():
     assert AStarAlgo(11,11) == [11]

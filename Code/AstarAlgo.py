@@ -1,5 +1,5 @@
-from ..MainModules.LondonGraphBuilder import LondonGraphBuilder
-from ..MainModules.graph import Graph
+from LondonGraphBuilder import LondonGraphBuilder
+from graph import Graph
 
 from math import radians,sin,cos,asin,sqrt
 

@@ -1,8 +1,8 @@
 import csv
 
-from ..SubwayClasses.Line import Line
-from ..SubwayClasses.Station import Station
-from ..SubwayClasses.Edge import Edge
+from Line import Line
+from Station import Station
+from Edge import Edge
 
 class LondonGraphBuilder:
 
@@ -14,7 +14,7 @@ class LondonGraphBuilder:
 
     def read_London_Station(self):
         stations_list = {}
-        with open('Code\_dataset\london.stations.csv') as file:
+        with open('..\_dataset\london.stations.csv') as file:
             csvFile = csv.reader(file)
 
             next(csvFile) #Skip headers
@@ -28,7 +28,7 @@ class LondonGraphBuilder:
 
     def read_London_Lines(self):
         L_Lines = {}
-        with open('Code\_dataset\london.lines.csv')as file:
+        with open('..\_dataset\london.lines.csv')as file:
             csvFile = csv.reader(file)
 
             next(csvFile) #Skip headers
@@ -43,7 +43,7 @@ class LondonGraphBuilder:
 
     def read_London_Connections(self):
         connections = [] #
-        with open('Code\_dataset/london.connections.csv')as file:
+        with open('..\_dataset/london.connections.csv')as file:
             csvFile = csv.reader(file)
 
             next(csvFile) #Skip headers

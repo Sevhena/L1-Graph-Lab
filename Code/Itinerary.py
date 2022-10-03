@@ -1,6 +1,6 @@
-from ..PathFinders.Dijkstra import Dijkstra
+from Dijkstra import Dijkstra
 
-from .MetricExtractor import numNodes
+from MetricExtractor import numNodes
 import random
 
 
