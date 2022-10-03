@@ -53,11 +53,12 @@ class UrbanPlanning:
         if(node in zoneNeeded):
             temp.append(node)
 
-        for adjacentEdge in self.graph.getAdjList()[node]:
-            adjacentNode = adjacentEdge.getTo().getId()
-            if(visited[adjacentNode] == False):
-                if(adjacentNode in zoneNeeded):
-                    temp = self.DFS(temp,adjacentNode,visited,zone)
+        for adjacentEdgeList in self.graph.getAdjList()[node].values():
+            for adjacentEdge in adjacentEdgeList:
+                adjacentNode = adjacentEdge.getTo().getId()
+                if(visited[adjacentNode] == False):
+                    if(adjacentNode in zoneNeeded):
+                        temp = self.DFS(temp,adjacentNode,visited,zone)
         return temp
 
     def connectedComponents(self,zone):
@@ -89,14 +90,14 @@ class UrbanPlanning:
         # if they are not on the same island then we run A* to achieve a path, then we run through that path checking if any nodes
         # before the final node are on the same isalnd as the final node, if so then we return a path from the beginning to that node 
         # if not then we just return the A* path.
-        a = AstarAlgo(self.graph)
+        a = AstarAlgo(self.graph, start)
         startIsland = self.getIsland(self.stations[start].getZone(),start)
         endIsland = self.getIsland(self.stations[end].getZone(),end)
         if(end in startIsland):
             print("Already on the island")
             return
         else:
-            Apath = a.aStarAlgo(start,end)
+            Apath = a.pathTo(end)
             path = [Apath[0]]
             for i in range(1,len(Apath)):
                 if(Apath[i] in endIsland):

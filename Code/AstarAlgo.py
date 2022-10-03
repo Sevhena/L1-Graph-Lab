@@ -1,7 +1,5 @@
-from LondonGraphBuilder import LondonGraphBuilder
-from graph import Graph
+from math import radians, sin, cos, asin, sqrt
 
-from math import radians,sin,cos,asin,sqrt
 
 class AstarAlgo:
 
@@ -13,7 +11,7 @@ class AstarAlgo:
 
         self.stations = {}
         for dict in self.graph.getAdjList().values():
-            for row in dict.values(): 
+            for row in dict.values():
                 for edge in row:
                     self.stations[edge.getStart().getId()] = edge.getStart()
                     break
@@ -21,28 +19,27 @@ class AstarAlgo:
 
         self.getGeoLocations(self.stations)
 
-
-    def getGeoLocations(self,stations):
+    def getGeoLocations(self, stations):
         for station in stations:
             self.geoLocations[station] = [stations[station].getLatitude(),stations[station].getLongitude()]
 
-    def getH(self,node,goalNode):
+    def getH(self, node, goalNode):
         long1 = radians(self.geoLocations[node][0])
         long2 = radians(self.geoLocations[goalNode][0])
         lat1 = radians(self.geoLocations[node][1])
         lat2 = radians(self.geoLocations[goalNode][1])
-        
+
         dlon = long2 - long1
         dlat = lat2 - lat1
         a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
-        
+
         c = 2 * asin(sqrt(a))
 
         r = 6371
 
         return (c*r)
 
-    def pathTo(self,goalNode):
+    def pathTo(self, goalNode):
         openList = set([self.start])
         closedList = set([])
 

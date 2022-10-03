@@ -2,15 +2,16 @@ from MetricExtractor import numNodes
 
 from MinPQ import MinPQ
 
+
 class Dijkstra:
 
     def __init__(self, graph, start):
         self.start = start
         num_Nodes = numNodes(graph)
 
-        #Shortest based on line changes
+        # Shortest based on line changes
         self.timeTo = [0] * (num_Nodes + 2)
-        self.connectionsTo = [0] * (num_Nodes + 2) 
+        self.connectionsTo = [0] * (num_Nodes + 2)
         self.edgeTo = [0] * (num_Nodes + 2)
 
         self.pqueue = MinPQ(num_Nodes + 2)
@@ -30,17 +31,13 @@ class Dijkstra:
         #     if edge != 0:
         #         print(edge.start.getId(),edge.to.getId())
 
-
     def relax(self, graph, node1):
         lastEdge = None
-        #print(graph.getAdjList().keys())
         for row in graph.getAdjList()[node1].values():
             for edge in row:
                 node2 = edge.to.getId()
-                #print(node2,node1)
 
                 newLine = lastEdge != None and edge.line.lineID != lastEdge.line.lineID
-                #print(int(newLine))
 
                 # if self.connectionsTo[node2] > self.connectionsTo[node1] + newLine:
                 #     self.updateEdges(node1, node2, edge, newLine)
